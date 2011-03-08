@@ -2,4 +2,6 @@
 <resources>
     <string name="hello">Hello World, mobili!</string>
     <string name="app_name">mobili</string>
+    <string name="Zoomin">Zoom in</string>
+    <string name="Zoomout">Zoom out</string>
 </resources>
