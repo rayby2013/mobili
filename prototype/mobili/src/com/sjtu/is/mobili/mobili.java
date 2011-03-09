@@ -22,10 +22,10 @@ public class mobili extends Activity {
                     return true;
                 }
         });
+        test.setVisibility(25);
         test.getSettings().setJavaScriptEnabled(true);
         test.getSettings().setPluginsEnabled(true);
         test.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
-        test.loadUrl("http://www.bilibili.us/play.swf?vid=47658897");
     }
     
     public void openPage(View theButton) {
@@ -33,6 +33,6 @@ public class mobili extends Activity {
     }
     
     public void zoomin(View theButton) {
-    	test.invokeZoomPicker();
+    	test.getSettings().setBuiltInZoomControls(true);
     }
 }
