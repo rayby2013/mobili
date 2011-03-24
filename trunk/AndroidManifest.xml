@@ -1,0 +1,47 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sjtu.is.mobili" android:versionCode="1" android:versionName="1.0">
+<uses-sdk android:minSdkVersion="8"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+<application android:icon="@drawable/icon" android:label="@string/app_name">
+<activity android:name="HomePage" android:label="@string/app_name">
+<intent-filter>
+<action android:name="android.intent.action.MAIN"/>
+<category android:name="android.intent.category.LAUNCHER"/>
+</intent-filter>
+</activity>
+<activity android:name=".anime"/>
+<activity android:name=".homepage"/>
+<activity android:name="CollectionPage"/>
+<activity android:name=".entertainment.dance"/>
+<activity android:name=".collection.zhuan2"/>
+<activity android:name=".game.flash"/>
+<activity android:name="GamePage"/>
+<activity android:name=".game.videogame"/>
+<activity android:name=".music.sanciyuan"/>
+<activity android:name=".anime.mm3d"/>
+<activity android:name=".entertainment.life"/>
+<activity android:name=".game.mugen"/>
+<activity android:name=".entertainment.video"/>
+<activity android:name=".music.reproducedversion"/>
+<activity android:name="SerializationPage"/>
+<activity android:name="MusicPage"/>
+<activity android:name="MListView"/>
+<activity android:name="loading"/>
+<activity android:name=".music.musicvideo"/>
+<activity android:name=".serialization.new2"/>
+<activity android:name=".serialization.new3"/>
+<activity android:name=".anime.oni"/>
+<activity android:name=".anime.periodical"/>
+<activity android:name=".entertainment.sanciyuan"/>
+<activity android:name=".game.videostrategy"/>
+<activity android:name=".music.vocaloid"/>
+<activity android:name=".collection.zhuan3"/>
+<activity android:name="showVideoList">
+<activity android:name="ShowVideo"></activity>
+</activity>
+<activity android:name="CommentPage"></activity>
+
+
+
+</application>
+</manifest>

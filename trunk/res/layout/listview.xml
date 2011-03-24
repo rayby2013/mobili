@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+android:id="@+id/LinearLayout01" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" 
+xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_width="wrap_content" android:id="@+id/frameLayout1" android:layout_height="match_parent"></FrameLayout>
+    <FrameLayout android:layout_width="wrap_content" android:id="@+id/frameLayout2" android:layout_height="match_parent"></FrameLayout>
+<ListView android:layout_width="wrap_content" 
+android:layout_height="wrap_content" 
+android:id="@+id/android.R.id.list"
+/>
+</LinearLayout>

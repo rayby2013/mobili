@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/about" android:icon="@android:drawable/ic_menu_info_details" android:title="关于"></item>
+	<item android:id="@+id/exit" android:icon="@android:drawable/ic_menu_revert" android:title="退出"></item>
+	<item android:id="@+id/Login" android:icon="@android:drawable/ic_menu_add" android:title="登陆"></item>
+	<item android:id="@+id/favourite" android:icon="@android:drawable/ic_menu_save" android:title="收藏夹"></item>
+	<item android:id="@+id/help" android:icon="@android:drawable/ic_menu_help" android:title="指南"></item>
+</menu>
