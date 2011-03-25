@@ -36,11 +36,11 @@ public class CommentPage extends ListActivity{
 		public void handleMessage(Message msg) {
 			Log.v("comment", "数据装入");
 			DataSet ds = (DataSet)msg.obj;
-			pDialog.dismiss();
 			if(ds.equals(null))
 			{
 				Toast.makeText(getApplicationContext(), "网络异常！", Toast.LENGTH_SHORT).show();
 			}else{
+				Log.v("comment", "载入评论"+ ds.list.size()+ "条");
 				list = ds.list;
 				actions = ds.actions;
 				MSimpleAdapter adapter;
@@ -54,6 +54,7 @@ public class CommentPage extends ListActivity{
 													   R.id.comment_time});
 				setListAdapter(adapter);
 			}
+			pDialog.dismiss();
 		}
 		
 	}
@@ -102,6 +103,7 @@ class CommentParser{
 	
 	public CommentParser(String avid){
 		this.avid = avid;
+		Log.v("comment", "comment by"+avid);
 		content = hr.sendGetRequest(url, "aid="+this.avid);
 	}
 	

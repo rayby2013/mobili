@@ -1,5 +1,14 @@
 package com.sjtu.is.mobili.video;
 
-public class VideoPage {
+import android.app.Activity;
+import android.os.Bundle;
 
+public class VideoPage extends Activity{
+	
+	private String aid;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
 }

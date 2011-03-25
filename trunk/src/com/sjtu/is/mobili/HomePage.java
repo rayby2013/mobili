@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class HomePage extends ListActivity {
-	private static final String[] menu = {"最热视频", "Anime", "Music", "Game", "Entertainment", "合集 ", "新番连载", "comment"};
+	private static final String[] menu = {"最热视频", "Anime", "Music", "Game", "Entertainment", "合集 ", "新番连载"};
 	private Map<String, Object> actions = new HashMap<String, Object>();
 	MyHandler myHandler;
 
@@ -37,19 +37,17 @@ public class HomePage extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		//Toast.makeText(getApplicationContext(), "网络异常！", Toast.LENGTH_LONG).show();
-		//Intent rec = new Intent(this, MListView.class);   
-		//rec.putExtra("url", "http://www.bilibili.us/"); 
-		//rec.putExtra("type", "main");
-		Intent d = new Intent(this, CommentPage.class);   
-		d.putExtra("avid", "72757");
-		actions.put(menu[0], new Intent(this,AnimePage.class));
+		Intent rec = new Intent(this, MListView.class);   
+		rec.putExtra("url", "http://www.bilibili.us/"); 
+		rec.putExtra("type", "main");
+		
+		actions.put(menu[0], rec);
 		actions.put(menu[1], new Intent(this,AnimePage.class));
 		actions.put(menu[2], new Intent(this,MusicPage.class));
 		actions.put(menu[3], new Intent(this,GamePage.class));
 		actions.put(menu[4], new Intent(this,EntertainmentPage .class));
 		actions.put(menu[5], new Intent(this,CollectionPage.class));
 		actions.put(menu[6], new Intent(this,SerializationPage.class));
-		actions.put(menu[7], d);
 		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
 				menu));
 		//测试网络
