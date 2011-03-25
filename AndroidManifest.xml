@@ -9,11 +9,9 @@
 <category android:name="android.intent.category.LAUNCHER"/>
 </intent-filter>
 </activity>
-<activity android:name=".anime"/>
-<activity android:name=".homepage"/>
+<activity android:name="AnimePage"/>
 <activity android:name="CollectionPage"/>
-<activity android:name=".entertainment.dance"/>
-<activity android:name=".collection.zhuan2"/>
+<activity android:name="EntertainmentPage"/>
 <activity android:name=".game.flash"/>
 <activity android:name="GamePage"/>
 <activity android:name=".game.videogame"/>
@@ -40,6 +38,7 @@
 <activity android:name="ShowVideo"></activity>
 </activity>
 <activity android:name="CommentPage"></activity>
+<activity android:name="ShowVideo"></activity>
 
 
 

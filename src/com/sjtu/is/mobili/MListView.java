@@ -89,10 +89,9 @@ public class MListView extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		System.out.print(position);
 		link = actions.get(position);
-		GetVid gV = new GetVid();
-		String vid = gV.gotVid(link);
 		Intent video = new Intent(this, ShowVideo.class);   
-		video.putExtra("vid", vid); 
+		video.putExtra("url", link);
+		video.putExtra("imgUrl", (String)list.get(position).get("img"));
 		startActivity(video);
 	}
 
