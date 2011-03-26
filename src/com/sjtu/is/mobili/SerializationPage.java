@@ -59,6 +59,7 @@ public class SerializationPage extends ListActivity {
 	/* (non-Javadoc)
 	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
 	 */
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		this.getMenuInflater().inflate(R.layout.menu, menu);
 		return true;

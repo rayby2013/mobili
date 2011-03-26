@@ -8,8 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sjtu.is.mobili.http.HttpRequest;
-import com.sjtu.is.mobili.user.LoginDialog;
-import com.sjtu.is.mobili.user.UserSession;
 import com.sjtu.is.mobili.utils.DataSet;
 import com.sjtu.is.mobili.utils.MSimpleAdapter;
 
@@ -71,6 +69,7 @@ public class CommentPage extends ListActivity{
 		Log.v("comment", "clicked on "+userId);
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	/*
 		if (UserSession.isLogin()){
@@ -81,6 +80,7 @@ public class CommentPage extends ListActivity{
 		return true;
 	}
 	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		/*switch (item.getItemId()) {
 		case R.id.comment_option:

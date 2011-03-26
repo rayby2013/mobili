@@ -11,12 +11,9 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.sjtu.is.mobili.user.UserData;
 import com.sjtu.is.mobili.utils.DrawableManager;
 import com.sjtu.is.mobili.video.VideoData;
-import com.sjtu.is.mobili.video.VideoPage;
 
 
 
@@ -29,6 +26,7 @@ public class ShowVideo extends Activity {
 	private String imgUrl;
 	private ProgressDialog pDialog;
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.showvideo);
@@ -82,6 +80,7 @@ public class ShowVideo extends Activity {
         thread.start();
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		this.getMenuInflater().inflate(R.menu.doga_menu, menu);
 		return true;
@@ -96,7 +95,7 @@ public class ShowVideo extends Activity {
 			startActivity(comment);
 			return true;		   
 		case R.id.doga_play:
-			Intent video = new Intent(this, VideoPage.class);
+			Intent video = new Intent(this, com.sjtu.is.mobili.video.VideoPage.class);
 			video.putExtra("vid", videoData.getVid());
 			startActivity(video);
 			return true;

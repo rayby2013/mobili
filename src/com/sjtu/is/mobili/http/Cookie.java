@@ -103,6 +103,7 @@ class Cookie {
 		return path.startsWith(this.path);
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder(name);
 		result.append("=");
