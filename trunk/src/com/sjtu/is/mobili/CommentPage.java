@@ -8,6 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sjtu.is.mobili.http.HttpRequest;
+import com.sjtu.is.mobili.user.CommentDialog;
+import com.sjtu.is.mobili.user.LoginDialog;
+import com.sjtu.is.mobili.user.UserSession;
 import com.sjtu.is.mobili.utils.DataSet;
 import com.sjtu.is.mobili.utils.MSimpleAdapter;
 
@@ -71,25 +74,27 @@ public class CommentPage extends ListActivity{
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	/*
+		this.getMenuInflater().inflate(R.menu.comment_menu, menu);
 		if (UserSession.isLogin()){
-			this.getMenuInflater().inflate(R.menu.comment_menu_login, menu);
-		} else {
-			this.getMenuInflater().inflate(R.menu.comment_menu_unlogin, menu);
-		}*/
+			menu.removeGroup(R.id.logged_out);
+		}else{
+			menu.removeGroup(R.id.logged_in);
+		}
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
-		/*switch (item.getItemId()) {
-		case R.id.comment_option:
+		switch (item.getItemId()) {
+		case R.id.send_comment:
+			CommentDialog cd = new CommentDialog(this, avid);
+			cd.show();
+			return true;
+		case R.id.comment_login:
 			LoginDialog login_dialog = new LoginDialog(this);
 			login_dialog.show();
 			return true;
-		case R.id.comment_item_2:
-			System.out.println("comment!!!");
-		}*/
+		}
 		return false;
 	}
 	
