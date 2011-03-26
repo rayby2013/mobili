@@ -111,6 +111,7 @@ public class HomePage extends ListActivity {
 		else return true;
 	}
 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		this.getMenuInflater().inflate(R.layout.menu, menu);
 		return true;

@@ -17,6 +17,7 @@ import android.widget.SimpleAdapter;
 			super(context, data, resource, from, to);
 			// TODO Auto-generated constructor stub
 		}
+		@Override
 		public void setViewImage(ImageView v, String value) {
 			Log.d("imageDownd", value);
 			DrawableManager dm = new DrawableManager();

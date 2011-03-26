@@ -12,6 +12,7 @@ import java.util.Map;
 public class ListCookieHandler extends CookieHandler {
 	private List<Cookie> cookieJar = new LinkedList<Cookie>();
 
+	@Override
 	public void put(URI uri, Map<String, List<String>> responseHeaders) throws IOException {
 		List<String> setCookieList = responseHeaders.get("Set-Cookie");
 		if (setCookieList != null) {
@@ -29,6 +30,7 @@ public class ListCookieHandler extends CookieHandler {
 		}
 	}
 
+	@Override
 	public Map<String, List<String>> get(URI uri, Map<String, List<String>> requestHeaders)
 	throws IOException {
 		StringBuilder cookies = new StringBuilder();
