@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sjtu.is.mobili.http.HttpRequest;
+import com.sjtu.is.mobili.user.LoginDialog;
+import com.sjtu.is.mobili.user.UserSession;
 import com.sjtu.is.mobili.utils.DataSet;
 import com.sjtu.is.mobili.utils.MSimpleAdapter;
 
@@ -18,6 +20,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -65,6 +69,28 @@ public class CommentPage extends ListActivity{
 		System.out.print(position);
 		userId = actions.get(position);
 		Log.v("comment", "clicked on "+userId);
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	/*
+		if (UserSession.isLogin()){
+			this.getMenuInflater().inflate(R.menu.comment_menu_login, menu);
+		} else {
+			this.getMenuInflater().inflate(R.menu.comment_menu_unlogin, menu);
+		}*/
+		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item){
+		/*switch (item.getItemId()) {
+		case R.id.comment_option:
+			LoginDialog login_dialog = new LoginDialog(this);
+			login_dialog.show();
+			return true;
+		case R.id.comment_item_2:
+			System.out.println("comment!!!");
+		}*/
+		return false;
 	}
 	
 	@Override
