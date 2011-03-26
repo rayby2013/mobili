@@ -59,7 +59,7 @@ public class AnalyzeHtml
         	
         	
         	//提取预览图片地址
-        	Pattern ppic = Pattern.compile("http.*(jpg|png|gif|jpeg)");
+        	Pattern ppic = Pattern.compile("http.*?(jpg|png|gif|jpeg)");
         	Matcher mpic = ppic.matcher(temp);
         	if(mpic.find())
         	{
