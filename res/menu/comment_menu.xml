@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/logged_in">
+        <item android:id="@+id/send_comment"
+        	android:title="发表评论"></item>
+    </group>
+    <group android:id="@+id/logged_out">
+        <item android:id="@+id/comment_login"
+        	android:title="请先登陆"></item>
+    </group>
+</menu>
