@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.sjtu.is.mobili.user.UserData;
 import com.sjtu.is.mobili.utils.DrawableManager;
 import com.sjtu.is.mobili.video.VideoData;
+import com.sjtu.is.mobili.video.VideoPage;
 
 
 
@@ -95,7 +96,9 @@ public class ShowVideo extends Activity {
 			startActivity(comment);
 			return true;		   
 		case R.id.doga_play:
-			Toast.makeText(getApplicationContext(), "该功能尚未实现，请等待下一版本！", Toast.LENGTH_SHORT).show();
+			Intent video = new Intent(this, VideoPage.class);
+			video.putExtra("vid", videoData.getVid());
+			startActivity(video);
 			return true;
 		}
 		return true;

@@ -19,6 +19,7 @@
 <activity android:name="MListView"/>
 <activity android:name="CommentPage"></activity>
 <activity android:name="ShowVideo"></activity>
+<activity android:name=".video.VideoPage"></activity>
 
 
 
