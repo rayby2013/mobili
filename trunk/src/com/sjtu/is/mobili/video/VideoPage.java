@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 public class VideoPage extends Activity{
 	
 	private String vid;
+	private WebView wv = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,8 @@ public class VideoPage extends Activity{
 				"</embed>"+
 				"</body>"+
 			"</html>"; 
-		WebView wv = (WebView)findViewById(R.id.webViewPlayer);
 		
+		wv = (WebView)findViewById(R.id.webViewPlayer);
 		wv.setWebViewClient(new WebViewClient(){
             @Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -59,4 +60,15 @@ public class VideoPage extends Activity{
 		//本地播放器部分，暂时无法使用
 		//wv.loadData(html_data, "text/html", "utf-8");
 	}
+	
+	protected void onPause() {
+		wv.loadData("", "text/html", "utf-8");
+		super.onPause();
+	}
+	
+	protected void onResume() {
+		wv.loadUrl("http://www.bilibili.us/play.swf?"+vid);
+		super.onResume();
+	}
+	
 }
