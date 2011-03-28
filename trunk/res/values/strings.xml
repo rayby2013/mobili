@@ -4,4 +4,5 @@
     <string name="app_name">mobili</string>
     <string name="Zoomin">Zoom in</string>
     <string name="Zoomout">Zoom out</string>
+    <string name="loading">正在载入信息</string>
 </resources>

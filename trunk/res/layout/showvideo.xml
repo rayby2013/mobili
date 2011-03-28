@@ -6,18 +6,15 @@
 	
 	<TextView android:id="@+id/title" 
 			  android:layout_width="fill_parent"
-			  android:layout_height="wrap_content"
-			  android:text="@string/hello" />
+			  android:layout_height="wrap_content" android:text="@string/loading"/>
 	
 	<ImageView android:src="@drawable/icon" 
 			   android:id="@+id/doga_img"
-			   android:layout_width="wrap_content" 
-			   android:layout_height="wrap_content"></ImageView>
+			   android:layout_width="320dip" android:layout_height="240dip"></ImageView>
 	
-	<TextView android:text="TextView" 
-			  android:id="@+id/uper_name"
+	<TextView android:id="@+id/uper_name"
 			  android:layout_width="wrap_content" 
-			  android:layout_height="wrap_content"></TextView>
+			  android:layout_height="wrap_content" android:text="@string/loading"></TextView>
 	
 	<WebView android:id="@+id/doga_description" 
 			 android:layout_width="match_parent"
