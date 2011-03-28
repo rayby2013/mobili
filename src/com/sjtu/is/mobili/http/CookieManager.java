@@ -7,13 +7,16 @@ import android.util.Log;
 public class CookieManager {
 	
 	private static boolean created = false;
+	private static ListCookieHandler lch = null;
 	
 	public static void initilize() throws Exception {
 		if (!created){
-			CookieHandler.setDefault(new ListCookieHandler());
+			lch = new ListCookieHandler();
+			CookieHandler.setDefault(lch);
 			created = true;
 			Log.v("cookie", "initlized cookie");
 		} else {
+			//CookieHandler.setDefault(lch);
 			Log.v("cookie", "with cookie");
 		}
 	}

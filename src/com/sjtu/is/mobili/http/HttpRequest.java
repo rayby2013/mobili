@@ -16,17 +16,20 @@ import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.util.Log;
 
 
 
 public class HttpRequest  {
 	
+	private static DefaultHttpClient httpclient = null;
+	
 	public HttpRequest(){
-		try{
-			CookieManager.initilize();
-		}catch( Exception e){
-			Log.d("http", e.toString());
+		
+		if (httpclient==null){
+			httpclient = new DefaultHttpClient();
 		}
 	}
 	
