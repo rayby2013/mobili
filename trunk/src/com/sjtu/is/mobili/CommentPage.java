@@ -143,10 +143,9 @@ class CommentParser{
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<Integer, String> actions = new HashMap<Integer, String>();
 		
-		final String _regex = "<div class=\"userface\">.*?</div><div class=\"tgbf_title\">.*?</div>";
+		final String _regex = "<div class=\"userface\">.*?</div>\\s*<div class=\"tgbf_title\">.*?</div>";
 		final String _re_face = "<img src=\"([^\"]+)\"";
-		final String _re_name = "<a href=\"http://www.bilibili.us/member/"+
-						  		"index.php\\?mid=(\\d+)\"\\s+target=\"_blank\">([^<]+)</a>";
+		final String _re_name = "<a href=\"/member/index.php\\?mid=(\\d+)\"\\s+target=\"_blank\">([^<]+)</a>";
 		final String _re_content = "<div class=\"tgbf_content\">(.*)</div>";
 		final String _re_date = "<span class=\"date\">([^<]+)</span>";
 		

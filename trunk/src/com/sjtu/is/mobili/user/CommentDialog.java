@@ -72,6 +72,9 @@ public class CommentDialog extends Dialog implements OnClickListener{
 			if (re.indexOf("成功发表评论")>=0){
 				Log.v("send_comment","发表成功");
 				Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
+			}else{
+				Log.d("send_comment", re);
+				Toast.makeText(context, "评论失败", Toast.LENGTH_SHORT).show();
 			}
 		}catch(Exception e){
 			Log.e("send_comment",e.toString());
