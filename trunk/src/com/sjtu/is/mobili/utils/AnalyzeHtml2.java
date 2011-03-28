@@ -62,13 +62,14 @@ public class AnalyzeHtml2
         	
         	
         	//提取预览图片地址
-        	Pattern ppic = Pattern.compile("http.*?(jpg|png|gif|jpeg)\"");
+        	Pattern ppic = Pattern.compile("<img src=\'http.*?(jpg|png|gif|jpeg)\'");
         	Matcher mpic = ppic.matcher(temp);
         	if(mpic.find())
         	{
         		pic = mpic.group();
         		//System.out.println(pic);
-        		map.put("img", pic.replace("\"", ""));
+        		pic = pic.substring(9);
+        		map.put("img", pic.replace("\'", ""));
         	}
         	
         	//提取链接地址
