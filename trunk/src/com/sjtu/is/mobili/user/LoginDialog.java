@@ -1,11 +1,12 @@
 package com.sjtu.is.mobili.user;
 
 
-import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.sjtu.is.mobili.R;
-import com.sjtu.is.mobili.http.HttpRequest;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,9 +14,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.View.OnClickListener;
+
+import com.sjtu.is.mobili.R;
+import com.sjtu.is.mobili.http.HttpRequest;
 
 public class LoginDialog extends Dialog implements OnClickListener{
 
@@ -62,8 +66,15 @@ public class LoginDialog extends Dialog implements OnClickListener{
     		data_str+= "&pwd=" + URLEncoder.encode(password, "UTF-8");
     		Log.v("login", "post data:"+data_str);
     		
-    		URL url = new URL(url_str);
-    		String output = hq.postData(data_str, url);
+    		List<NameValuePair> nvps = new ArrayList <NameValuePair>();
+            nvps.add(new BasicNameValuePair("fmdo", "login"));
+            nvps.add(new BasicNameValuePair("dopost", "login"));
+            nvps.add(new BasicNameValuePair("gourl", ""));
+            nvps.add(new BasicNameValuePair("keeptime", "604800"));
+            nvps.add(new BasicNameValuePair("userid", username));
+            nvps.add(new BasicNameValuePair("pwd", password));
+    		
+    		String output = hq.postData(url_str, nvps);
     		
     		is_login = checkLogin(output);
     		

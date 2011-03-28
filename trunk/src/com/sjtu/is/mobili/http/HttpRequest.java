@@ -1,24 +1,22 @@
 package com.sjtu.is.mobili.http;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import android.util.Log;
+import org.apache.http.protocol.HTTP;
 
 
 
@@ -34,148 +32,54 @@ public class HttpRequest  {
 	}
 	
 	
-	/**
-	* Sends an HTTP GET request to a url
-	*
-	* @param endpoint - The URL of the server. (Example: " http://www.yahoo.com/search")
-	* @param requestParameters - all the request parameters (Example: "param1=val1&param2=val2"). Note: This method will add the question mark (?) to the request - DO NOT add it yourself
-	* @return - The response from the end point
-	*/
+	
 	public String sendGetRequest(String endpoint, String requestParameters)
-	{
-		String result = null;
-		if (endpoint.startsWith("http://"))
-		{
-			// Send a GET request to the servlet
-			try
-			{
-				// Send data
-				String urlStr = endpoint;
-				if (requestParameters != null && requestParameters.length () > 0)
-				{
-					urlStr += "?" + requestParameters;
-				}
-				URL url = new URL(urlStr);
-				URLConnection conn = url.openConnection ();
-				// Get the response
-				BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				StringBuffer sb = new StringBuffer();
-				String line;
-				while ((line = rd.readLine()) != null)
-				{
-					sb.append(line);
-				}
-				rd.close();
-				result = sb.toString();
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return result;
-	}
-	
-	
-	/**
-	* Reads data from the data reader and posts it to a server via POST request.
-	* @param data - The data you want to send
-	* @param endpoint - The server's address
-	* @param output - writes the server's response to output
-	* @throws Exception
-	*/
-	@SuppressWarnings("finally")
-	public String postData(String data,
-						   URL endpoint) throws Exception
-	{
-		boolean is_ssl = false;
-		if (!endpoint.toString().startsWith("http://")) is_ssl = true;
-		
-		Log.v("http", "is ssl:"+ new Boolean(is_ssl).toString() );
-		HttpURLConnection urlc = null;
-		Writer output = new StringWriter();
-		try
-		{
-			if (!is_ssl) urlc = (HttpURLConnection) endpoint.openConnection();
-			else urlc = (HttpsURLConnection) endpoint.openConnection();
-			try
-			{
-				urlc.setRequestMethod("POST");
-				HttpURLConnection.setFollowRedirects(true); 
-			} catch (ProtocolException e)
-			{
-				throw new Exception(
-						"Shouldn't happen: HttpURLConnection doesn't support POST??",
-						e);
-			}
-			urlc.setDoOutput(true);
-			urlc.setDoInput(true);
-			urlc.setUseCaches(true);
-			urlc.setAllowUserInteraction(false);
-			//urlc.setRequestProperty("Content-length",String.valueOf (data.length())); 
-			urlc.setRequestProperty("Content-type", 
-									"application/x-www-form-urlencoded");
-			
-			OutputStream out = urlc.getOutputStream();
-			try
-			{
-				
-				DataOutputStream data_s = new DataOutputStream( urlc.getOutputStream() ); 
-				data_s.writeBytes(data);
-				Log.v("http", "post data");
-				data_s.close();
-				
-			} catch (IOException e)
-			{
-				throw new Exception("IOException while posting data", 
-									e);
-			} finally
-			{
-				if (out != null)
-					out.close();
-			}
-			InputStream in = urlc.getInputStream();
-			try
-			{
-				Reader reader = new InputStreamReader(in);
-				pipe(reader, output);
-				reader.close();
-				Log.v("http", urlc.getHeaderField("set-cookie"));
-				
-			} catch (IOException e)
-			{
-				throw new Exception(
-						"IOException while reading response",
-						e
-				);
-			} finally
-			{
-				if (in != null)
-					in.close();
-			}
-		} catch (IOException e)
-		{
-			throw new Exception(
-					"Connection error (is server running at " +
-					endpoint + " ?): " + e);
-		} finally
-		{
-			if (urlc != null)
-				Log.v("http", "urlc is not null");
-				urlc.disconnect();
-				return output.toString();
-		}
-	}
+			throws Exception {
 
-	private static void pipe(Reader reader, Writer output) 
-	throws IOException
+		HttpGet httpget = new HttpGet(endpoint + "?" + requestParameters);
+		HttpResponse response = httpclient.execute(httpget);
+		HttpEntity entity = response.getEntity();
+		return convertStreamToString(entity.getContent());
+
+	}
+	
+	
+
+	public String postData(String endpoint, List<NameValuePair> data) throws Exception
 	{
-		char[] buf = new char[1024];
-		int read = 0;
-		while ((read = reader.read(buf)) >= 0)
-		{
-			output.write(buf, 0, read);
-		}
-		output.flush();
+		HttpPost httpost = new HttpPost(endpoint);
+		httpost.setEntity(new UrlEncodedFormEntity(data, HTTP.UTF_8));
 		
+		HttpResponse response = httpclient.execute(httpost);
+		HttpEntity entity = response.getEntity();
+		return convertStreamToString(entity.getContent());
+		
+	}
+	
+	private String convertStreamToString(InputStream is) throws IOException {
+		/*
+		 * To convert the InputStream to String we use the Reader.read(char[]
+		 * buffer) method. We iterate until the Reader return -1 which means
+		 * there's no more data to read. We use the StringWriter class to
+		 * produce the string.
+		 */
+		if (is != null) {
+			Writer writer = new StringWriter();
+
+			char[] buffer = new char[1024];
+			try {
+				Reader reader = new BufferedReader(new InputStreamReader(is,
+						"UTF-8"));
+				int n;
+				while ((n = reader.read(buffer)) != -1) {
+					writer.write(buffer, 0, n);
+				}
+			} finally {
+				is.close();
+			}
+			return writer.toString();
+		} else {
+			return "";
+		}
 	}
 }

@@ -1,7 +1,10 @@
 package com.sjtu.is.mobili.user;
 
-import com.sjtu.is.mobili.R;
-import com.sjtu.is.mobili.http.HttpRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.net.URL;
-import java.net.URLEncoder;
+import com.sjtu.is.mobili.R;
+import com.sjtu.is.mobili.http.HttpRequest;
 
 
 public class CommentDialog extends Dialog implements OnClickListener{
@@ -63,12 +66,18 @@ public class CommentDialog extends Dialog implements OnClickListener{
 			cancel();
 			return;
 		}
-		String data = "action=send&aid="+aid+
-			"&isconfirm=yes&msg="+ URLEncoder.encode(ccs)+
-			"&comtype=comments&username="+ URLEncoder.encode(UserSession.getUserName());
+
+		List<NameValuePair> nvps = new ArrayList <NameValuePair>();
+        nvps.add(new BasicNameValuePair("action", "send"));
+        nvps.add(new BasicNameValuePair("aid", aid));
+        nvps.add(new BasicNameValuePair("isconfirm", "yes"));
+        nvps.add(new BasicNameValuePair("msg", ccs));
+        nvps.add(new BasicNameValuePair("comtype", "comments"));
+        nvps.add(new BasicNameValuePair("username", UserSession.getUserName()));
+        
 		try{
 			HttpRequest hr = new HttpRequest();
-			String re = hr.postData(data, new URL(url));
+			String re = hr.postData(url, nvps);
 			if (re.indexOf("成功发表评论")>=0){
 				Log.v("send_comment","发表成功");
 				Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
