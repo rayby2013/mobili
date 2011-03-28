@@ -112,11 +112,16 @@ public class CommentPage extends ListActivity{
 		{
 			public void run() 
 			{
-				
-				CommentParser cp = new CommentParser(CommentPage.this.avid);
-				Message toMain = new Message();
-				toMain.obj = cp.parse();
-				CommentPage.this.ch.sendMessage(toMain);
+				try{
+					CommentParser cp = new CommentParser(CommentPage.this.avid);
+					Message toMain = new Message();
+					toMain.obj = cp.parse();
+					CommentPage.this.ch.sendMessage(toMain);
+				}catch (Exception e){
+					Log.e("comment" ,e.toString());
+					Toast.makeText(getApplicationContext(), "载入评论错误", Toast.LENGTH_SHORT).show();
+					finishActivity(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				}
 
 			}
 		});
@@ -132,10 +137,11 @@ class CommentParser{
 	private String content;
 	private HttpRequest hr = new HttpRequest();
 	
-	public CommentParser(String avid){
+	public CommentParser(String avid) throws Exception{
 		this.avid = avid;
 		Log.v("comment", "comment by"+avid);
 		content = hr.sendGetRequest(url, "aid="+this.avid);
+	
 	}
 	
 	public DataSet parse(){
