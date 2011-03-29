@@ -44,6 +44,7 @@ public class ShowVideo extends Activity {
             	TextView title = (TextView)findViewById(R.id.title);
         		ImageView di = (ImageView)findViewById(R.id.doga_img);
         		TextView un = (TextView)findViewById(R.id.uper_name);
+        		TextView avnumber = (TextView)findViewById(R.id.av_number);
         		WebView dd = (WebView)findViewById(R.id.doga_description);
         		
         		DrawableManager dm = new DrawableManager();
@@ -51,7 +52,7 @@ public class ShowVideo extends Activity {
         		UserData ud = videoData.getUper();
         		
         		if (ud!=null){
-        			un.setText(ud.getUsername());
+        			un.setText("UP主:"+ud.getUsername());
         		}
         		String dEncoded = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>"
         						  +videoData.getDescription()+"</body></html> ";
@@ -63,6 +64,9 @@ public class ShowVideo extends Activity {
                 title.setText(videoData.getTitle());
                 dd.loadData(dEncoded, "text/html", "utf-8");
                 di.setImageDrawable(dm.fetchDrawable(videoData.getImgUrl()));
+                String avID = url.replaceAll("http://www.bilibili.us//video/", "");
+                avID = avID.replaceAll("/", "");
+                avnumber.setText(avID);
                 
                 pDialog.dismiss();
             }
