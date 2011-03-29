@@ -66,7 +66,7 @@ public class ShowVideo extends Activity {
                 di.setImageDrawable(dm.fetchDrawable(videoData.getImgUrl()));
                 String avID = url.replaceAll("http://www.bilibili.us//video/", "");
                 avID = avID.replaceAll("/", "");
-                avnumber.setText(avID);
+                avnumber.setText("av号:"+avID);
                 
                 pDialog.dismiss();
             }

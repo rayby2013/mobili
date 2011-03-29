@@ -22,13 +22,14 @@ public class DogaInfoParser
 	public String getVid()
 	{
 		
-		Pattern p = Pattern.compile("vid=[0-9]*");//匹配视频
+		Pattern p = Pattern.compile("flashvars=\".*?\"");//匹配视频
 	    Matcher m = p.matcher(htmlSrc);
 	    String temp = "";
 	    if (m.find())
 	    {
 	    	temp = m.group();
-	    	temp.replaceAll("vid=", "");
+	    	temp = temp.replaceAll("flashvars=", "");
+	    	temp = temp.replaceAll("\"", "");
 	    	
 	    }
 		return temp;
@@ -45,7 +46,7 @@ public class DogaInfoParser
 	
 	public UserData getAuthor(){
 		
-		String regex_name = "\"usname\"><a href='http://www.bilibili.us/member/index.php\\?mid=(\\d+)' target='_blank'>(.*?)<";
+		String regex_name = "\"usname\"><a href='/member/index.php\\?mid=(\\d+)' target='_blank'>(.*?)<";
 		Pattern p_name = Pattern.compile(regex_name, Pattern.DOTALL);
 		Matcher m_name = p_name.matcher(htmlSrc);
 		UserData ud = null;
