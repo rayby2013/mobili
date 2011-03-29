@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sjtu.is.mobili.user.LoginDialog;
+import com.sjtu.is.mobili.user.UserPage;
+import com.sjtu.is.mobili.user.UserSession;
 import com.sjtu.is.mobili.utils.GetHtmlSrc;
 
 import android.app.AlertDialog;
@@ -110,6 +112,23 @@ public class HomePage extends ListActivity {
 			return false;
 		else return true;
 	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu){
+		
+		MenuItem li = menu.findItem(R.id.Manage);
+		MenuItem lo = menu.findItem(R.id.Login);
+		if (UserSession.isLogin()) {
+			if(li!=null) li.setVisible(true);
+			if(lo!=null) lo.setVisible(false);
+		}
+		else {
+			if(li!=null) li.setVisible(false);
+			if(lo!=null) lo.setVisible(true);
+		}
+		
+		return super.onPrepareOptionsMenu(menu);   
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,7 +171,14 @@ public class HomePage extends ListActivity {
 		case R.id.favourite:
 			Log.v("menu", "bookmarks");
 			Toast.makeText(getApplicationContext(), "该功能尚未实现，请等待下一版本！", Toast.LENGTH_SHORT).show();
-			return true;	
+			return true;
+		
+		case R.id.Manage:
+			Log.v("menu", "manager");
+			Intent up = new Intent(this, UserPage.class);   
+			startActivity(up);
+			return true;
+			
 		}
 		return true;
 	}
