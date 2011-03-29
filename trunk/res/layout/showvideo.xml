@@ -3,19 +3,35 @@
 			  android:orientation="vertical" 
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent">
-	
 	<TextView android:id="@+id/title" 
-			  android:layout_width="fill_parent"
-			  android:layout_height="wrap_content" android:text="@string/loading"/>
-	
-	<ImageView android:src="@drawable/icon" 
-			   android:id="@+id/doga_img"
-			   android:layout_width="320dip" android:layout_height="240dip"></ImageView>
-	
-	<TextView android:id="@+id/uper_name"
-			  android:layout_width="wrap_content" 
-			  android:layout_height="wrap_content" android:text="@string/loading"></TextView>
-	
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:text="@string/loading"
+			  android:textSize="35px"/>
+			  
+   <LinearLayout android:orientation="horizontal"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content">
+	    <ImageView android:id="@+id/doga_img"
+			   	   android:layout_width="320px"
+				   android:layout_height="240px"
+				   android:layout_margin="5px"
+				   android:scaleType="fitXY">
+		</ImageView>
+		
+		<LinearLayout android:orientation="vertical"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content">
+				<TextView android:id="@+id/uper_name"
+				  		android:layout_width="wrap_content" 
+						android:layout_height="wrap_content"
+						android:text="@string/loading"></TextView>
+				<TextView android:id="@+id/av_number"
+				  		android:layout_width="wrap_content" 
+						android:layout_height="wrap_content"
+						android:text="@string/loading"></TextView>	
+		</LinearLayout>
+	</LinearLayout>
 	<WebView android:id="@+id/doga_description" 
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent"></WebView>
