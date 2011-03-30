@@ -35,8 +35,11 @@ public class HttpRequest  {
 	
 	public String sendGetRequest(String endpoint, String requestParameters)
 			throws Exception {
-
-		HttpGet httpget = new HttpGet(endpoint + "?" + requestParameters);
+		
+		String url;
+		if(requestParameters!="") url=endpoint + "?" + requestParameters;
+		else url=endpoint;
+		HttpGet httpget = new HttpGet(url);
 		HttpResponse response = httpclient.execute(httpget);
 		HttpEntity entity = response.getEntity();
 		return convertStreamToString(entity.getContent());
