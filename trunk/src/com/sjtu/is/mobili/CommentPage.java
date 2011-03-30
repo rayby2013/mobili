@@ -73,13 +73,26 @@ public class CommentPage extends ListActivity{
 	}
 	
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu){
+		
+		MenuItem sc = menu.findItem(R.id.send_comment);
+		MenuItem cl = menu.findItem(R.id.comment_login);
+		if (UserSession.isLogin()) {
+			if(sc!=null) sc.setVisible(true);
+			if(cl!=null) cl.setVisible(false);
+		}
+		else {
+			if(sc!=null) sc.setVisible(false);
+			if(cl!=null) cl.setVisible(true);
+		}
+		
+		return super.onPrepareOptionsMenu(menu);   
+	}
+	
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		this.getMenuInflater().inflate(R.menu.comment_menu, menu);
-		if (UserSession.isLogin()){
-			menu.removeGroup(R.id.logged_out);
-		}else{
-			menu.removeGroup(R.id.logged_in);
-		}
 		return true;
 	}
 	
