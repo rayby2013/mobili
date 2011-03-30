@@ -25,6 +25,7 @@
 	android:screenOrientation="landscape">
 </activity>
 <activity android:name=".user.UserPage"></activity>
+<activity android:name=".user.BookMarkPage"></activity>
 
 
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.sjtu.is.mobili.user.BookMarkPage;
 import com.sjtu.is.mobili.user.LoginDialog;
 import com.sjtu.is.mobili.user.UserPage;
 import com.sjtu.is.mobili.user.UserSession;
@@ -79,7 +80,12 @@ public class MListActivity extends ListActivity {
 			return true;	
 		case R.id.favourite:
 			Log.v("menu", "bookmarks");
-			Toast.makeText(getApplicationContext(), "该功能尚未实现，请等待下一版本！", Toast.LENGTH_SHORT).show();
+			if (!UserSession.isLogin())
+				Toast.makeText(getApplicationContext(), "请先登陆", Toast.LENGTH_SHORT).show();
+			else{
+				Intent bp = new Intent(this, BookMarkPage.class);   
+				startActivity(bp);
+			}
 			return true;
 		
 		case R.id.Manage:

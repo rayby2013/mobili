@@ -8,10 +8,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.sjtu.is.mobili.user.BookMarkPage;
 import com.sjtu.is.mobili.user.UserData;
+import com.sjtu.is.mobili.user.UserSession;
 import com.sjtu.is.mobili.utils.DrawableManager;
 import com.sjtu.is.mobili.video.VideoData;
 
@@ -63,7 +68,8 @@ public class ShowVideo extends Activity {
         		//}
                 title.setText(videoData.getTitle());
                 dd.loadData(dEncoded, "text/html", "utf-8");
-                di.setImageDrawable(dm.fetchDrawable(videoData.getImgUrl()));
+                if(videoData.getImgUrl()!=null)di.setImageDrawable(dm.fetchDrawable(videoData.getImgUrl()));
+                else di.setVisibility(View.INVISIBLE);
                 String avID = url.replaceAll("http://www.bilibili.us//video/", "");
                 avID = avID.replaceAll("/", "");
                 avnumber.setText("av号:"+avID);
@@ -85,6 +91,20 @@ public class ShowVideo extends Activity {
 	}
 	
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu){
+		
+		MenuItem dm = menu.findItem(R.id.doga_mark);
+		if (UserSession.isLogin()) {
+			if(dm!=null) dm.setVisible(true);
+		}
+		else {
+			if(dm!=null) dm.setVisible(false);
+		}
+		
+		return super.onPrepareOptionsMenu(menu);   
+	}
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		this.getMenuInflater().inflate(R.menu.doga_menu, menu);
 		return true;
@@ -103,7 +123,29 @@ public class ShowVideo extends Activity {
 			video.putExtra("vid", videoData.getVid());
 			startActivity(video);
 			return true;
-		}
+		case R.id.doga_mark:
+			final Handler handler = new Handler() {
+	            @Override
+	            public void handleMessage(Message message) {
+	            	pDialog.dismiss();
+	            	if ((Boolean)message.obj){
+	            		Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
+	            	}
+	            	else{
+	            		Toast.makeText(getApplicationContext(), "收藏失败", Toast.LENGTH_SHORT).show();
+	            	}
+	            }
+			};
+			pDialog = ProgressDialog.show(this, "", "标记收藏 …", true, true);
+	        Thread thread = new Thread() {
+	            @Override
+	            public void run() {
+	                Message message = handler.obtainMessage(1, BookMarkPage.setAsMark(videoData.getAid()));
+	                handler.sendMessage(message);
+	            }
+	        };
+	        thread.start();
+		}	
 		return true;
 	}
 	
