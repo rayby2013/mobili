@@ -23,5 +23,19 @@
 		android:id="@+id/user_score"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"></TextView>
+	
+	<CheckBox android:text="记住密码"
+		android:id="@+id/save_auth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></CheckBox>
+	<CheckBox android:text="自动登陆"
+		android:id="@+id/auto_login"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></CheckBox>
+	<Button android:text="保存设置" 
+		android:id="@+id/user_confirm" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"></Button>
+	
 		
 </LinearLayout>

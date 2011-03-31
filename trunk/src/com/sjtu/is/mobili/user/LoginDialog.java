@@ -8,26 +8,33 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.j256.ormlite.dao.Dao;
 import com.sjtu.is.mobili.R;
+import com.sjtu.is.mobili.db.DBHelper;
 import com.sjtu.is.mobili.http.HttpRequest;
 
 public class LoginDialog extends Dialog implements OnClickListener{
-
+	private final String PREFERENCES_NAME="mobili";
+	private SharedPreferences settings;
+	private ProgressDialog pDialog;
 	private Context context=null;
 	private String url_str="https://secure.bilibili.us/member/index_do.php";
 	
 	public  LoginDialog(Context context) {
 		super(context);
+		settings = context.getSharedPreferences(PREFERENCES_NAME, Activity.MODE_PRIVATE);
 		
 		this.context = context;
 		setContentView(R.layout.login_dialog);
@@ -36,10 +43,28 @@ public class LoginDialog extends Dialog implements OnClickListener{
 		
 		Button login_button = (Button)findViewById(R.id.login);
 		Button cancel_button = (Button)findViewById(R.id.cancel);
+		EditText login_et = (EditText)findViewById(R.id.username); 
+    	EditText passwd_et = (EditText)findViewById(R.id.password);
+    	
+    	if(settings.getBoolean("saveAuth", false)){
+    		DBHelper dbh = new DBHelper(context);
+				try{
+					Dao<UserData, String> userDao = dbh.getUserDataDao();
+					UserData ud = userDao.queryForId(settings.getString("lastUser", "test"));
+					if (ud!=null){
+						login_et.setText(ud.getUsername());
+						passwd_et.setText(ud.getPassword());
+					}
+				}catch(Exception e){
+					Log.e("login", e.toString());
+				}
+    	}
+    	
 		
 		login_button.setOnClickListener(this);
 		cancel_button.setOnClickListener(this);
 		Log.v("login", "drawed dialog");
+
 	}
 	
 
@@ -51,14 +76,20 @@ public class LoginDialog extends Dialog implements OnClickListener{
 		
 	}
 	
-	private void login(){
+	public void login(){
 		
 		EditText login_et = (EditText)findViewById(R.id.username); 
     	EditText passwd_et = (EditText)findViewById(R.id.password);
 		final String username = login_et.getText().toString();
 		final String password = passwd_et.getText().toString();
+		
+		login(username, password);
+	}
+	
+	public void login(final String username, final String password){
 		boolean is_login = false;
-    	
+		pDialog = ProgressDialog.show(context, "", "用户信息载入中 …", true, true);
+		
     	HttpRequest hq = new HttpRequest();
     	try{
     		String data_str = "fmdo=login&dopost=login&gourl=&keeptime=604800";
@@ -83,34 +114,30 @@ public class LoginDialog extends Dialog implements OnClickListener{
     	}finally{
     		new UserSession(username, "!");
     		if (!is_login){
-    			 new AlertDialog.Builder(context)
- 				.setTitle("错误").setMessage("登陆失败")
- 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
- 					public void onClick(DialogInterface dialog, int whichButton) {
- 						UserSession.setLogin(false);
- 						dialog.dismiss();
- 					}
- 				})
- 				.show();
+    			Toast.makeText(context, "登陆失败", Toast.LENGTH_SHORT).show();
+ 				UserSession.setLogin(false);
+ 				
     		}else{
-    			 new AlertDialog.Builder(context)
- 				.setTitle("成功").setMessage("登陆成功")
- 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
- 					public void onClick(DialogInterface dialog, int whichButton) {
- 						UserSession.setLogin(true);
- 						//DBHelper dbh = new UserDBHelper(context);
- 						//DBHandler dbhr = new DBHandler(dbh);
- 						//String sql = "select id from Accounts where username="+username;
- 						//Cursor cursor = dbhr.execSQL(sql);
- 						
- 						dialog.dismiss();
- 						dismiss();
- 					}
- 				})
- 				.show();
+    			Toast.makeText(context, "登陆成功", Toast.LENGTH_SHORT).show();
+    			UserSession.setLogin(true);
+					DBHelper dbh = new DBHelper(context);
+					try{
+						Dao<UserData, String> userDao = dbh.getUserDataDao();
+						UserData ud = userDao.queryForId(username);
+						if (ud==null){
+							ud = new UserData(username, "1", password);
+							userDao.create(ud);
+						} else{
+							ud = new UserData(username, "1", password);
+							userDao.update(ud);
+						}
+					}catch(Exception e){
+						Log.e("login", e.toString());
+					}
     		}
+    		pDialog.dismiss();
+    		dismiss();
     	}
-		
 	}
 	
 	private boolean checkLogin(String output){
