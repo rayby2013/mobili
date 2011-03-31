@@ -20,7 +20,6 @@ import com.sjtu.is.mobili.user.UserSession;
 
 public class MListActivity extends ListActivity {
 	public Map<String, Object> actions;
-	
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu){

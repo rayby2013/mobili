@@ -3,21 +3,29 @@ package com.sjtu.is.mobili;
 
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.j256.ormlite.dao.Dao;
+import com.sjtu.is.mobili.db.DBHelper;
+import com.sjtu.is.mobili.user.LoginDialog;
+import com.sjtu.is.mobili.user.UserData;
 import com.sjtu.is.mobili.utils.GetHtmlSrc;
 
 public class HomePage extends MListActivity {
 	private static final String[] menu = {"最热视频", "Anime", "Music", "Game", "Entertainment", "合集 ", "新番连载"};
 	MyHandler myHandler;
-
+	private final String PREFERENCES_NAME="mobili";
+	private SharedPreferences settings;
 
 
 	/* (non-Javadoc)
@@ -26,7 +34,7 @@ public class HomePage extends MListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		settings = getSharedPreferences(PREFERENCES_NAME, Activity.MODE_PRIVATE);
 		//Toast.makeText(getApplicationContext(), "网络异常！", Toast.LENGTH_LONG).show();
 		Intent rec = new Intent(this, MListView.class);   
 		rec.putExtra("url", "http://www.bilibili.us/"); 
@@ -42,6 +50,20 @@ public class HomePage extends MListActivity {
 		actions.put(menu[6], new Intent(this,SerializationPage.class));
 		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
 				menu));
+		
+    	if(settings.getBoolean("autoLogin", false)){
+    		DBHelper dbh = new DBHelper(this);
+				try{
+					Dao<UserData, String> userDao = dbh.getUserDataDao();
+					UserData ud = userDao.queryForId(settings.getString("lastUser", "test"));
+					if (ud!=null){
+						LoginDialog ld = new LoginDialog(this);
+						ld.login(ud.getUsername(), ud.getPassword());
+					}
+				}catch(Exception e){
+					Log.e("login", e.toString());
+				}
+    	}
 		//测试网络
 		myHandler = new MyHandler() ;
 		Thread t = new Thread(new Runnable() 
