@@ -38,7 +38,7 @@ public class CommentDialog extends Dialog implements OnClickListener{
 		this.aid = aid;
 		
 		setContentView(R.layout.comment_dialog);
-		setTitle("用户登陆");
+		setTitle("发表评论");
 		
 		Button login_button = (Button)findViewById(R.id.comment_confirm);
 		Button cancel_button = (Button)findViewById(R.id.comment_cancel);
