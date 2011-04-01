@@ -2,7 +2,6 @@ package com.sjtu.is.mobili;
 
 
 import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.widget.ArrayAdapter;
 
 public class CollectionPage extends MListActivity {
 	private static final String[] menu = {"随便看看", "专辑二次元", "专辑三次元", "Homepage"};
-	private Map<String, Object> actions = new HashMap<String, Object>();
+	//private Map<String, Object> actions = new HashMap<String, Object>();
 
 
 
@@ -23,7 +22,7 @@ public class CollectionPage extends MListActivity {
 
 
 
-
+		actions = new HashMap<String, Object>();
 		Intent rec = new Intent(this, MListView.class);   
 		rec.putExtra("url", "http://www.bilibili.us/video/part.html"); 
 		rec.putExtra("type", "main");

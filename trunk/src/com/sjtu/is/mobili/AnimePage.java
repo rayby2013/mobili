@@ -2,7 +2,6 @@ package com.sjtu.is.mobili;
 
 
 import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +9,8 @@ import android.widget.ArrayAdapter;
 
 public class AnimePage extends MListActivity {
 	private static final String[] menu = {"随便看看", "MAD.AMV", "MMD.3D", "二次元鬼畜", "期刊.其他", "Homepage", };
-	private Map<String, Object> actions = new HashMap<String, Object>();
-
-
-
+	//private Map<String, Object> actions = new HashMap<String, Object>();
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -21,7 +18,7 @@ public class AnimePage extends MListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
+		actions = new HashMap<String, Object>();
 		Intent rec = new Intent(this, MListView.class);   
 		rec.putExtra("url", "http://www.bilibili.us/video/douga.html"); 
 		rec.putExtra("type", "main");
