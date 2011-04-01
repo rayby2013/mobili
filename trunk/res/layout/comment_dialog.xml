@@ -4,15 +4,19 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical">
 	<EditText android:id="@+id/comment_text" 
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
+		android:layout_width="250dip"
+		android:layout_height="80dip" 
 		android:hint="评论内容"></EditText>
-	<Button android:text="确定" 
-		android:id="@+id/comment_confirm"
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"></Button>
-	<Button android:text="取消" 
-		android:id="@+id/comment_cancel"
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"></Button>
+		<LinearLayout android:orientation="horizontal"
+					  android:layout_width="wrap_content" 
+					  android:layout_height="wrap_content">
+				<Button android:text="确定" 
+					android:id="@+id/comment_confirm"
+					android:layout_width="125dip" 
+					android:layout_height="wrap_content"></Button>
+				<Button android:text="取消" 
+					android:id="@+id/comment_cancel"
+					android:layout_width="125dip" 
+					android:layout_height="wrap_content"></Button>
+		</LinearLayout>
 </LinearLayout>

@@ -8,22 +8,26 @@
 			  android:text=""
 			  android:hint="用户名"
 			  android:layout_height="wrap_content" 
-			  android:layout_width="fill_parent"></EditText>
+			  android:layout_width="200dip"></EditText>
 	
 	<EditText android:id="@+id/password" 
 			  android:text=""
 			  android:hint="密码"
 			  android:layout_height="wrap_content" 
-			  android:layout_width="fill_parent"
+			  android:layout_width="200dip"
 			  android:password="true"></EditText>
 
-		<Button android:text="登陆" 
-				android:id="@+id/login" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"></Button>
-		<Button android:text="取消" 
-				android:id="@+id/cancel" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"></Button>
+		<LinearLayout android:orientation="horizontal"
+					  android:layout_width="wrap_content" 
+					  android:layout_height="wrap_content">
+			<Button android:text="登陆" 
+					android:id="@+id/login" 
+					android:layout_width="100dip" 
+					android:layout_height="wrap_content"></Button>
+			<Button android:text="取消" 
+					android:id="@+id/cancel" 
+					android:layout_width="100dip" 
+					android:layout_height="wrap_content"></Button>
+		</LinearLayout>
 
 </LinearLayout>
