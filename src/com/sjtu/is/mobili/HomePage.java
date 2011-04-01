@@ -22,7 +22,7 @@ import com.sjtu.is.mobili.user.UserData;
 import com.sjtu.is.mobili.utils.GetHtmlSrc;
 
 public class HomePage extends MListActivity {
-	private static final String[] menu = {"最热视频", "Anime", "Music", "Game", "Entertainment", "合集 ", "新番连载"};
+	private static final String[] menu = {"最热视频", "Anime", "Music", "Game", "Entertainment", "合集", "新番连载"};
 	MyHandler myHandler;
 	private final String PREFERENCES_NAME="mobili";
 	private SharedPreferences settings;

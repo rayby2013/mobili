@@ -2,18 +2,15 @@ package com.sjtu.is.mobili;
 
 
 import java.util.HashMap;
-import java.util.Map;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
-public class MusicPage extends ListActivity {
+public class MusicPage extends MListActivity {
 	private static final String[] menu = {"随便看看", "音乐视频", "三次元音乐", "VOCALOID相关", "翻唱", "Homepage"};
-	private Map<String, Object> actions = new HashMap<String, Object>();
-
-
+	//private Map<String, Object> actions = new HashMap<String, Object>();
+	
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -22,6 +19,7 @@ public class MusicPage extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		actions = new HashMap<String, Object>();
 		Intent rec = new Intent(this, MListView.class);   
 		rec.putExtra("url", "http://www.bilibili.us/video/music.html"); 
 		rec.putExtra("type", "main");

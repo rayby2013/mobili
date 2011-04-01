@@ -2,18 +2,16 @@ package com.sjtu.is.mobili;
 
 
 import java.util.HashMap;
-import java.util.Map;
 
-import android.app.ListActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
-public class SerializationPage extends ListActivity {
+public class SerializationPage extends MListActivity {
 	private static final String[] menu = {"随便看看", "新番二次元", "新番三次元", "Homepage"};
-	private Map<String, Object> actions = new HashMap<String, Object>();
-
-
+	//private Map<String, Object> actions = new HashMap<String, Object>();
+	
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -22,7 +20,7 @@ public class SerializationPage extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
+		actions = new HashMap<String, Object>();
 		Intent rec = new Intent(this, MListView.class);   
 		rec.putExtra("url", "http://www.bilibili.us/video/bangumi.html");
 		rec.putExtra("type", "main");

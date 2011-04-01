@@ -2,7 +2,6 @@ package com.sjtu.is.mobili;
 
 
 import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +9,8 @@ import android.widget.ArrayAdapter;
 
 public class GamePage extends MListActivity {
 	private static final String[] menu = {"随便看看", "视频游戏", "视频攻略解说", "Mugen", "flash游戏", "Homepage"};
-    private Map<String, Object> actions = new HashMap<String, Object>();
-    
+    //private Map<String, Object> actions = new HashMap<String, Object>();
+	
  
 
 	/* (non-Javadoc)
@@ -20,7 +19,8 @@ public class GamePage extends MListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		actions = new HashMap<String, Object>();
 		Intent rec = new Intent(this, MListView.class);   
 		rec.putExtra("url", "http://www.bilibili.us/video/game.html"); 
 		rec.putExtra("type", "main");
